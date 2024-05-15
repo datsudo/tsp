@@ -22,7 +22,7 @@ function nextGeneration() {
       console.log("CROSSOVER RATIO INCREASED TO 5");
     }
 
-    let offsprings = orderCrossover(parent1, parent2);
+    let offsprings = orderCrossoverShifted(parent1, parent2);
     let offspringsFitness = [
       routeDistance(offsprings[0]),
       routeDistance(offsprings[1]),
@@ -118,6 +118,41 @@ function createOffspring(p1Left, p1Center, p1Right, p2Center) {
   middleIdxs.forEach((i) => {
     offspring[i] = p2Center[j];
     j++;
+  });
+
+  return offspring;
+}
+
+function orderCrossoverShifted(p1, p2) {
+  let p1XOver = p1.slice(0, 3);
+  let p2XOver = p2.slice(0, 3);
+
+  let c1 = createOffspringShifted(p1, p2XOver);
+  let c2 = createOffspringShifted(p2, p1XOver);
+
+  mutate(c1);
+  mutate(c2);
+
+  return [c1, c2];
+}
+
+function createOffspringShifted(p1, p2XOver) {
+  let trimmedTemp = [];
+  p1.forEach((t) => {
+    if (!p2XOver.includes(t)) {
+      trimmedTemp.push(t);
+    }
+  });
+
+  let offspring = [];
+  let j = 0;
+  [3, 4, 5, 6, 7, 8, 9].forEach((i) => {
+    offspring[i] = p1[j];
+    j++;
+  });
+  j = 0;
+  [0, 1, 2].forEach((i) => {
+    offspring[i] = p2XOver[i];
   });
 
   return offspring;
