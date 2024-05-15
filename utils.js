@@ -9,6 +9,12 @@ function routeDistance(points) {
   for (let i = 0; i < points.length - 1; i++) {
     sum += dist(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
   }
+  sum += dist(
+    points[points.length - 1].x,
+    points[points.length - 1].y,
+    points[0].x,
+    points[0].y
+  );
   return sum;
 }
 

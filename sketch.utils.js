@@ -6,6 +6,7 @@ function renderCityName(color, size, weight) {
 }
 
 function renderVertices(path, color, ellipseSize, vertexWeight) {
+  path.push(path[0]);
   stroke(color.r, color.g, color.b);
   strokeWeight(vertexWeight);
   noFill();

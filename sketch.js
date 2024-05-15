@@ -13,7 +13,7 @@ let recordDistance;
 
 function setup() {
   createCanvas(900, 670);
-  frameRate(40);
+  frameRate(2);
 
   for (let i = 0; i < coords.length; i++) {
     const v = createVector(coords[i][0] + 200, coords[i][1] + 70);
