@@ -10,11 +10,11 @@ let bestRoute = "";
 let recordDistance;
 
 function setup() {
-  createCanvas(900, 600);
-  frameRate(1);
+  createCanvas(900, 670);
+  frameRate(10);
 
   for (let i = 0; i < coords.length; i++) {
-    const v = createVector(coords[i][0], coords[i][1] + 50);
+    const v = createVector(coords[i][0], coords[i][1] + 60);
     cities[i] = v;
     v.cityName = coords[i][2];
   }
@@ -27,13 +27,12 @@ function draw() {
 
   nextGeneration();
 
-  // show the current best
-  renderVertices(best, bestPathColor, 19, 3);
+  // show the best
+  renderVertices(best, red, 19, 3);
   renderCityName(textColor, 14, 3);
 
   recordDistance = routeDistance(best);
-  bestRoute = bestRouteToStr(best);
-  console.log(best);
+  bestRoute = routeToStr(best);
   renderLabels();
 
   if (

@@ -22,7 +22,8 @@ let coords = [
 
 // UI-related
 let textColor = { r: 0, g: 0, b: 0 };
-let bestPathColor = { r: 255, g: 0, b: 0 };
+let red = { r: 255, g: 0, b: 0 };
+let blue = { r: 0, g: 0, b: 255 };
 let pathColor = { r: 255, g: 255, b: 255 };
 let labelTextSize = 15;
 let labelTextWeight = 3;

@@ -12,11 +12,15 @@ function routeDistance(points) {
   return sum;
 }
 
-function bestRouteToStr(bestRoute) {
+function routeToStr(route) {
   let str = "";
-  bestRoute.forEach((city) => {
+  route.forEach((city) => {
     str = str.concat(`${city.cityName}  `);
   });
 
   return str;
+}
+
+function marginOfError(num1, num2) {
+  return Math.abs(num1 - num2) / num2;
 }

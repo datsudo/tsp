@@ -1,6 +1,6 @@
-let gitnaLastIdx = 8;
-let lefts = [8, 9, 0, 1, 2];
-let gitna = [3, 4, 5, 6, 7];
+let middleLastIdx = 6;
+let leftsIdxs = [6, 7, 8, 9, 0, 1, 2];
+let middleIdxs = [3, 4, 5];
 
 function createParents() {
   parent1 = shuffle(cities);
@@ -11,7 +11,17 @@ function createParents() {
 }
 
 function nextGeneration() {
-  while (true) {
+  let loop = 0;
+  while (loop < 3000) {
+    if (loop === 1000) {
+      increaseXOverRatio();
+      console.log("CROSSOVER RATIO INCREASED TO 4");
+    }
+    if (loop === 2000) {
+      increaseXOverRatio();
+      console.log("CROSSOVER RATIO INCREASED TO 5");
+    }
+
     let offsprings = orderCrossover(parent1, parent2);
     let offspringsFitness = [
       routeDistance(offsprings[0]),
@@ -25,28 +35,49 @@ function nextGeneration() {
 
     c1Minimum = offsprings[offspringsFitness.indexOf(c1MinimumDist)];
 
-    if (c1MinimumDist < parentMinimumDist) {
+    if (
+      c1MinimumDist < parentMinimumDist ||
+      marginOfError(c1MinimumDist, parentMinimumDist) < 0.01
+    ) {
       parent1 = c1Minimum;
       parent2 = shuffle(cities);
       while (parent1 === parent2.reverse()) {
         parent2 = shuffle(cities);
       }
       best = c1Minimum;
+      console.log("BETTER OFFSPRING. ASSIGNING NEW PARENT...");
       break;
     } else {
+      console.log("NO BETTER OFFSPRING. FINDING PARENTS...");
       parent2 = shuffle(cities);
     }
+    loop++;
   }
+  console.log("CROSSOVER RATIO RESET TO 3");
+  resetXOverRatio();
+}
+
+function increaseXOverRatio() {
+  middleLastIdx++;
+  unangElementSaLefts = leftsIdxs[0];
+  leftsIdxs.shift();
+  middleIdxs.push(unangElementSaLefts);
+}
+
+function resetXOverRatio() {
+  middleLastIdx = 6;
+  leftsIdxs = [6, 7, 8, 9, 0, 1, 2];
+  middleIdxs = [3, 4, 5];
 }
 
 function orderCrossover(p1, p2) {
   let parent1RemainLeft = p1.slice(0, 3);
-  let parent1XOverSection = p1.slice(3, gitnaLastIdx);
-  let parent1RemainRight = p1.slice(gitnaLastIdx, 10);
+  let parent1XOverSection = p1.slice(3, middleLastIdx);
+  let parent1RemainRight = p1.slice(middleLastIdx, 10);
 
   let parent2RemainLeft = p2.slice(0, 3);
-  let parent2XOverSection = p2.slice(3, gitnaLastIdx);
-  let parent2RemainRight = p2.slice(gitnaLastIdx, 10);
+  let parent2XOverSection = p2.slice(3, middleLastIdx);
+  let parent2RemainRight = p2.slice(middleLastIdx, 10);
 
   let c1 = createOffspring(
     parent1RemainLeft,
@@ -68,23 +99,23 @@ function orderCrossover(p1, p2) {
 }
 
 function createOffspring(p1Left, p1Center, p1Right, p2Center) {
-  let temp1 = p1Right.concat(p1Left).concat(p1Center);
-  let trimmedTemp1 = [];
-  temp1.forEach((t) => {
+  let temp = p1Right.concat(p1Left).concat(p1Center);
+  let trimmedTemp = [];
+  temp.forEach((t) => {
     if (!p2Center.includes(t)) {
-      trimmedTemp1.push(t);
+      trimmedTemp.push(t);
     }
   });
 
   let offspring = [];
 
   let j = 0;
-  lefts.forEach((i) => {
-    offspring[i] = trimmedTemp1[j];
+  leftsIdxs.forEach((i) => {
+    offspring[i] = trimmedTemp[j];
     j++;
   });
   j = 0;
-  gitna.forEach((i) => {
+  middleIdxs.forEach((i) => {
     offspring[i] = p2Center[j];
     j++;
   });
