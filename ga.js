@@ -7,23 +7,30 @@ function createParents() {
 }
 
 function nextGeneration() {
-  let offsprings = orderCrossover(parent1, parent2);
-  let offspringsFitness = [
-    routeDistance(offsprings[0]),
-    routeDistance(offsprings[1]),
-  ];
+  // TODO
+  while (true) {
+    let offsprings = orderCrossover(parent1, parent2);
+    let offspringsFitness = [
+      routeDistance(offsprings[0]),
+      routeDistance(offsprings[1]),
+    ];
 
-  let parentsFitness = [routeDistance(parent1), routeDistance(parent2)];
+    let parentsFitness = [routeDistance(parent1), routeDistance(parent2)];
 
-  c1MinimumDist = Math.min.apply(Math, offspringsFitness);
-  parentMinimumDist = Math.min.apply(Math, parentsFitness);
+    c1MinimumDist = Math.min.apply(Math, offspringsFitness);
+    parentMinimumDist = Math.min.apply(Math, parentsFitness);
 
-  c1Minimum = offsprings[offspringsFitness.indexOf(c1MinimumDist)];
+    c1Minimum = offsprings[offspringsFitness.indexOf(c1MinimumDist)];
 
-  if (c1MinimumDist < parentMinimumDist) {
-    parent1 = c1Minimum;
-    parent2 = shuffle(cities);
-    while (parent1 === parent2.reverse()) {
+    if (c1MinimumDist < parentMinimumDist) {
+      parent1 = c1Minimum;
+      parent2 = shuffle(cities);
+      while (parent1 === parent2.reverse()) {
+        parent2 = shuffle(cities);
+      }
+      best = c1Minimum;
+      break;
+    } else {
       parent2 = shuffle(cities);
     }
   }

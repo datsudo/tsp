@@ -1,4 +1,4 @@
-const MAX_GENERATION = 5;
+const MAX_GENERATION = 100;
 
 // Custom error that'll stop the rendering once the MAX_GENERATION was reached
 const stopRendering = new Error("ITERATION DONE.");

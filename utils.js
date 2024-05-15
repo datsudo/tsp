@@ -21,3 +21,7 @@ function isUnique(arr1, arr2) {
 
   return true;
 }
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
