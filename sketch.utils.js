@@ -53,4 +53,13 @@ function renderLabels() {
     labelTextPos.x,
     labelTextPos.y + 40
   );
+
+  renderText(
+    textColor,
+    labelTextSize,
+    labelTextWeight,
+    `Route = ${bestRoute}`,
+    labelTextPos.x,
+    labelTextPos.y + 60
+  );
 }

@@ -1,3 +1,7 @@
+let gitnaLastIdx = 8;
+let lefts = [8, 9, 0, 1, 2];
+let gitna = [3, 4, 5, 6, 7];
+
 function createParents() {
   parent1 = shuffle(cities);
   parent2 = shuffle(cities);
@@ -7,7 +11,6 @@ function createParents() {
 }
 
 function nextGeneration() {
-  // TODO
   while (true) {
     let offsprings = orderCrossover(parent1, parent2);
     let offspringsFitness = [
@@ -37,13 +40,13 @@ function nextGeneration() {
 }
 
 function orderCrossover(p1, p2) {
-  let parent1XOverSection = p1.slice(3, 6);
   let parent1RemainLeft = p1.slice(0, 3);
-  let parent1RemainRight = p1.slice(6, 10);
+  let parent1XOverSection = p1.slice(3, gitnaLastIdx);
+  let parent1RemainRight = p1.slice(gitnaLastIdx, 10);
 
-  let parent2XOverSection = p2.slice(3, 6);
   let parent2RemainLeft = p2.slice(0, 3);
-  let parent2RemainRight = p2.slice(6, 10);
+  let parent2XOverSection = p2.slice(3, gitnaLastIdx);
+  let parent2RemainRight = p2.slice(gitnaLastIdx, 10);
 
   let c1 = createOffspring(
     parent1RemainLeft,
@@ -57,6 +60,9 @@ function orderCrossover(p1, p2) {
     parent2RemainRight,
     parent1XOverSection
   );
+
+  mutate(c1);
+  mutate(c2);
 
   return [c1, c2];
 }
@@ -73,12 +79,12 @@ function createOffspring(p1Left, p1Center, p1Right, p2Center) {
   let offspring = [];
 
   let j = 0;
-  [6, 7, 8, 9, 0, 1, 2].forEach((i) => {
+  lefts.forEach((i) => {
     offspring[i] = trimmedTemp1[j];
     j++;
   });
   j = 0;
-  [3, 4, 5].forEach((i) => {
+  gitna.forEach((i) => {
     offspring[i] = p2Center[j];
     j++;
   });

@@ -6,10 +6,12 @@ let currentGeneration = 0;
 let parent1;
 let parent2;
 let best;
+let bestRoute = "";
 let recordDistance;
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(900, 600);
+  frameRate(1);
 
   for (let i = 0; i < coords.length; i++) {
     const v = createVector(coords[i][0], coords[i][1] + 50);
@@ -30,13 +32,16 @@ function draw() {
   renderCityName(textColor, 14, 3);
 
   recordDistance = routeDistance(best);
+  bestRoute = bestRouteToStr(best);
+  console.log(best);
   renderLabels();
 
-  if (currentGeneration >= MAX_GENERATION) {
+  if (
+    currentGeneration >= MAX_GENERATION ||
+    existingCombination.size == MAX_COMBINATION
+  ) {
     throw stopRendering;
   }
 
   currentGeneration++;
-
-  sleep(5000);
 }

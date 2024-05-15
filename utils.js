@@ -12,16 +12,11 @@ function routeDistance(points) {
   return sum;
 }
 
-function isUnique(arr1, arr2) {
-  for (let i = 0; i < arr1.length; ) {
-    if (arr1[i] === arr2[i]) {
-      return false;
-    }
-  }
+function bestRouteToStr(bestRoute) {
+  let str = "";
+  bestRoute.forEach((city) => {
+    str = str.concat(`${city.cityName}  `);
+  });
 
-  return true;
-}
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  return str;
 }
