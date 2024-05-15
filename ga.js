@@ -15,10 +15,12 @@ function nextGeneration() {
   while (loop < 3000) {
     if (loop === 1000) {
       increaseXOverRatio();
+      xoverRatio = 4;
       console.log("CROSSOVER RATIO INCREASED TO 4");
     }
     if (loop === 2000) {
       increaseXOverRatio();
+      xoverRatio = 5;
       console.log("CROSSOVER RATIO INCREASED TO 5");
     }
 
@@ -147,12 +149,13 @@ function createOffspringShifted(p1, p2XOver) {
   let offspring = [];
   let j = 0;
   [3, 4, 5, 6, 7, 8, 9].forEach((i) => {
-    offspring[i] = p1[j];
+    offspring[i] = trimmedTemp[j];
     j++;
   });
   j = 0;
   [0, 1, 2].forEach((i) => {
-    offspring[i] = p2XOver[i];
+    offspring[i] = p2XOver[j];
+    j++;
   });
 
   return offspring;

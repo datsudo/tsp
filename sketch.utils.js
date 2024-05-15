@@ -62,4 +62,13 @@ function renderLabels() {
     labelTextPos.x,
     labelTextPos.y + 60
   );
+
+  renderText(
+    textColor,
+    labelTextSize,
+    labelTextWeight,
+    `Crossover Ratio = ${xoverRatio}`,
+    labelTextPos.x,
+    labelTextPos.y + 80
+  );
 }
