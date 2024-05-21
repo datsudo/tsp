@@ -1,4 +1,4 @@
-const MAX_GENERATION = 100;
+const MAX_GENERATION = 200;
 const MAX_COMBINATION = 3_628_800;
 
 // Custom error that'll stop the rendering once the MAX_GENERATION was reached

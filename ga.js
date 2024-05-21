@@ -12,17 +12,16 @@ function createParents() {
 
 function nextGeneration() {
   let loop = 0;
-  while (loop < 3000) {
-    if (loop === 1000) {
-      increaseXOverRatio();
-      xoverRatio = 4;
-      console.log("CROSSOVER RATIO INCREASED TO 4");
-    }
-    if (loop === 2000) {
-      increaseXOverRatio();
-      xoverRatio = 5;
-      console.log("CROSSOVER RATIO INCREASED TO 5");
-    }
+
+  while (true) {
+    // if (loop === 1000) {
+    //   increaseXOverRatio();
+    //   xoverRatio = 4;
+    // }
+    // if (loop === 2000) {
+    //   increaseXOverRatio();
+    //   xoverRatio = 5;
+    // }
 
     let offsprings = orderCrossoverShifted(parent1, parent2);
     let offspringsFitness = [
@@ -37,6 +36,7 @@ function nextGeneration() {
 
     c1Minimum = offsprings[offspringsFitness.indexOf(c1MinimumDist)];
 
+    // FITNESS TEST
     if (
       c1MinimumDist < parentMinimumDist ||
       marginOfError(c1MinimumDist, parentMinimumDist) < 0.01
@@ -47,15 +47,12 @@ function nextGeneration() {
         parent2 = shuffle(cities);
       }
       best = c1Minimum;
-      console.log("BETTER OFFSPRING. ASSIGNING NEW PARENT...");
+      fitnessList.push(c1MinimumDist);
       break;
     } else {
-      console.log("NO BETTER OFFSPRING. FINDING PARENTS...");
       parent2 = shuffle(cities);
     }
-    loop++;
   }
-  console.log("CROSSOVER RATIO RESET TO 3");
   resetXOverRatio();
 }
 

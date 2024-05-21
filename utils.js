@@ -20,9 +20,11 @@ function routeDistance(points) {
 
 function routeToStr(route) {
   let str = "";
+  str = str.concat("[ ");
   route.forEach((city) => {
-    str = str.concat(`${city.cityName}  `);
+    str = str.concat(`${city.cityName} `);
   });
+  str = str.concat("]");
 
   return str;
 }
