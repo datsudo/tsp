@@ -32,3 +32,10 @@ function routeToStr(route) {
 function marginOfError(num1, num2) {
   return Math.abs(num1 - num2) / num2;
 }
+
+function getFitness(fl) {
+  return fl
+    .sort()
+    .reverse()
+    .slice(0, fitnessList.length - 1);
+}

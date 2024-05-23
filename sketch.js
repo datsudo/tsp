@@ -12,8 +12,15 @@ let bestRoute;
 let fitnessList = [];
 let recordDistance;
 
+let canvas, circles;
+const controls = {
+  view: { x: -2700, y: -2400, zoom: 7 },
+  viewPos: { prevX: null, prevY: null, isDragging: false },
+};
+
 function setup() {
-  createCanvas(1200, 670);
+  canvas = createCanvas(1200, 670);
+  canvas.mouseWheel((e) => Controls.zoom(controls).worldZoom(e));
 
   for (let i = 0; i < coords.length; i++) {
     const v = createVector(coords[i][0] + 200, coords[i][1] + 70);
@@ -27,19 +34,21 @@ function setup() {
 
 function draw() {
   background(210);
+  translate(controls.view.x, controls.view.y);
+  scale(controls.view.zoom);
   drawGrid();
 
   nextGeneration();
 
-  renderVertices(best, red, 19, 3);
-  renderCityName(textColor, 14, 3);
+  renderVertices(best, red, 1, 1);
+  // renderCityName(textColor, 14, 3);
 
   recordDistance = routeDistance(best);
   bestRoute = routeToStr(best);
-  renderLabels();
+  // renderLabels();
 
   if (currentGeneration >= MAX_GENERATION) {
-    fitnessList = fitnessList.sort().reverse();
+    fitnessList = getFitness(fitnessList);
     new Chart($("#graph"), {
       type: "line",
       data: {
@@ -87,3 +96,6 @@ function drawGrid() {
     text(y, 1, y + 12);
   }
 }
+window.mousePressed = (e) => Controls.move(controls).mousePressed(e);
+window.mouseDragged = (e) => Controls.move(controls).mouseDragged(e);
+window.mouseReleased = (e) => Controls.move(controls).mouseReleased(e);
